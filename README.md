@@ -40,14 +40,15 @@ utils/
 
 2. **Run Qdrant**
 
-## Running Qdrant with Docker
+#### Running Qdrant with Docker
 
 This project uses [Qdrant](https://qdrant.tech/) as the vector database for storing and retrieving document embeddings.
 
 To quickly start a Qdrant instance using Docker, run:
 
-```bash
+```sh
 docker run -d -p 6333:6333 -p 6334:6334 qdrant/qdrant
+```
 
 - Make sure Qdrant is running on `localhost:6333` and the start the data ingestion pipeline (ingestion_pipeline.py) to store the document and vector embedding.
 
