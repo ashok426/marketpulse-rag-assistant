@@ -54,8 +54,8 @@ utils/
 ## DEMO
 
 ![UI Inteface Demo](assets/complete_UI.png)
-
-![MarketPulse Assistant Demo](assets/Screenshot 2025-07-14 224527.png)
+![MarketPulse Assistant Demo](assets/Screenshot%202025-07-14%20224952.png)
+![MarketPulse Assistant Demo](assets/Screenshot%202025-07-14%20224527.png)
 
 ---
 
