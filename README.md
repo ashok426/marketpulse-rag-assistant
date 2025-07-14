@@ -5,7 +5,9 @@ A Retrieval-Augmented Generation (RAG) application for financial document analys
 ## Features
 
 - **Chat UI**: Ask questions about financial documents and get AI-powered answers.
+- **Document Parser**: Used Docling for parsing the tables and text in pdf document
 - **Document Chunk Retrieval**: Uses Qdrant vector database for semantic search.
+- **MMR Reranking**: Used MMR reranking to reduce the redundancy of results.
 - **Custom Retriever**: Retrieves relevant document chunks for your queries.
 - **FastAPI Backend**: RESTful endpoints for chat and retrieval.
 - **Jinja2 Templates**: Renders the chat interface.
@@ -46,6 +48,11 @@ utils/
 
 4. **Access the chat UI**
     - Open [http://localhost:8000](http://localhost:8000) in your browser.
+
+## DEMO
+
+![UI Inteface](assets/complete_UI.png)
+
 
 ## API Endpoints
 
