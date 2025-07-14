@@ -1,0 +1,6 @@
+qdrant_storage/
+.env
+config/
+utils/
+*.pyc
+__pycache__/

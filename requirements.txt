@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+docling
+langchain
+langchain-openai
+qdrant-client
+langchain-qdrant
+python-dotenv
+pandas
+numpy
+nest_asyncio
+
+
