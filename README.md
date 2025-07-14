@@ -49,10 +49,15 @@ utils/
 4. **Access the chat UI**
     - Open [http://localhost:8000](http://localhost:8000) in your browser.
 
+---
+
 ## DEMO
 
-![UI Inteface](assets/complete_UI.png)
+![UI Inteface Demo](assets/complete_UI.png)
 
+![MarketPulse Assistant Demo](assets/Screenshot 2025-07-14 224527.png)
+
+---
 
 ## API Endpoints
 
