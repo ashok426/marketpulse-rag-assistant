@@ -1,7 +1,7 @@
 body, html {
     height: 100%;
     margin: 0;
-    background: linear-gradient(to right, #26333D, #323741, #21214E);
+    background: linear-gradient(to right, #ffb3b3, #ffcccc, #ffe6e6); /* light red gradient */
     font-family: 'Roboto', sans-serif;
 }
 
@@ -17,7 +17,7 @@ body, html {
 }
 
 .card-header {
-    background-color: #2874f0;
+    background-color: #f08f28;
     color: white;
     border-radius: 20px 20px 0 0;
     border: none;

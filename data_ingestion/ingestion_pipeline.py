@@ -17,6 +17,8 @@ class DataPipeline:
     def __init__(self, pdf_path, embedding_model_name="text-embedding-3-small", chunk_size=700, chunk_overlap=200):
         load_dotenv(find_dotenv())
         os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+        os.environ["QDRANT_API_KEY"] = os.getenv("QDRANT_API_KEY")
+        os.environ["QDRANT_CLOUD_ENDPOINT"] = os.getenv("QDRANT_CLOUD_ENDPOINT")
         self.pdf_path = pdf_path
         self.embedding_model_name = embedding_model_name
         self.chunk_size = chunk_size
@@ -103,8 +105,6 @@ class DataPipeline:
     
 
     def ingest_to_qdrant(self,extracted_data, 
-                     host="localhost", 
-                     port=6333, 
                      collection_name="document_chunks_rag", 
                      vector_dim=512):
         
@@ -112,13 +112,13 @@ class DataPipeline:
         Connects to Qdrant, creates a collection, and ingests embeddings.
         """
         try:
-            print(f"Attempting to connect to Qdrant at {host}:{port}...")
-            client = QdrantClient(host=host, port=port)
+            print(f"Attempting to connect to Qdrant at ...")
+            client = QdrantClient(url=os.getenv("QDRANT_CLOUD_ENDPOINT"), api_key=os.getenv("QDRANT_API_KEY"),https=True)
             info = client.get_collections()
             print("Qdrant connection successful! Collections:", [c.name for c in info.collections])
         except Exception as e:
             print(f"Qdrant connection failed: {e}")
-            print("Please ensure your Qdrant Docker container is running (run 'docker ps').")
+            print("Please ensure your Qdrant cloud is running (check qdrant cluster).")
             return
 
         # Drop existing collection if it exists
@@ -163,7 +163,7 @@ class DataPipeline:
         print(f"Inserted {len(points)} records into Qdrant.")
 
 
-    def process(self, host="localhost", port=6333, collection_name="document_chunks_rag", vector_dim=512):
+    def process(self, collection_name="document_chunks_rag", vector_dim=512):
         document = self.load_and_convert()
         markdown_text = document.export_to_markdown()
         print("PDF loaded and converted to markdown.")
@@ -189,8 +189,6 @@ class DataPipeline:
 
         self.ingest_to_qdrant(
             extracted_data,
-            host=host,
-            port=port,
             collection_name=collection_name,
             vector_dim=vector_dim
         )
@@ -201,7 +199,7 @@ class DataPipeline:
 
 if __name__ == "__main__":
 
-    pdf_path = "/home/ashok/rag-project/docs/Morning-note-and-CA-09-July--25.pdf"
+    pdf_path = "docs/Morning-note-and-CA-09-July--25.pdf"
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"The specified PDF file does not exist: {pdf_path}")
     print(f"Loading PDF from: {pdf_path}")

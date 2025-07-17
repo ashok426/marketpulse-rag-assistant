@@ -9,7 +9,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="template")
 
 # Initialize your retriever (adjust host/port/collection as needed)
-retriever = Retriever("localhost", 6333, "document_chunks_rag")
+retriever = Retriever( "document_chunks_rag")
 
 @app.get("/", response_class=HTMLResponse)
 async def chat_page(request: Request):

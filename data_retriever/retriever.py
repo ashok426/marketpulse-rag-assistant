@@ -1,12 +1,17 @@
+import os
 import numpy as np
+from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from qdrant_client import QdrantClient
 from langchain_openai import OpenAIEmbeddings
 
 class Retriever:
-    def __init__(self, qdrant_host, qdrant_port, collection_name, embedding_model_name="text-embedding-3-small"):
-        self.client = QdrantClient(host=qdrant_host, port=qdrant_port)
+    def __init__(self, collection_name, embedding_model_name="text-embedding-3-small"):
+        load_dotenv(find_dotenv())
+        os.environ["QDRANT_API_KEY"] = os.getenv("QDRANT_API_KEY")
+        os.environ["QDRANT_CLOUD_ENDPOINT"] = os.getenv("QDRANT_CLOUD_ENDPOINT")
+        self.client = QdrantClient(url=os.getenv("QDRANT_CLOUD_ENDPOINT"), api_key=os.getenv("QDRANT_API_KEY"),https=True)
         self.collection_name = collection_name
         self.embeddings = OpenAIEmbeddings(model=embedding_model_name, dimensions=512)
         self.llm = ChatOpenAI(model="gpt-4o")
@@ -80,11 +85,11 @@ class Retriever:
         return answer
     
 if __name__ == "__main__":
-    QDRANT_HOST = "localhost"
-    QDRANT_PORT = 6333
+    # QDRANT_HOST = "localhost"
+    # QDRANT_PORT = 6333
     COLLECTION_NAME = "document_chunks_rag"
 
-    retriever = Retriever(QDRANT_HOST, QDRANT_PORT, COLLECTION_NAME)
+    retriever = Retriever(COLLECTION_NAME)
 
     print("Enter your query (or type 'exit' to quit):")
     while True:
